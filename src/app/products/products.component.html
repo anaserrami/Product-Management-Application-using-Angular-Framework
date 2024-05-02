@@ -1,23 +1,38 @@
 <div class="p-3">
   <div class="card">
     <div class="card-body">
+      <div class="card-body">
+        {{keyword}}
+        <input type="text" [(ngModel)]="keyword">&nbsp;
+        <button (click)="searchProducts()" class="btn btn-outline-primary"><i class="bi bi-search"></i></button>
+      </div>
       <table class="table">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Checked</th>
+            <th class="text-center">#</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Checked</th>
+            <th class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let product of products">
-            <td>{{product.id}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.price}}</td>
-            <td>
+            <td class="text-center">{{product.id}}</td>
+            <td class="text-center">{{product.name}}</td>
+            <td class="text-center">{{product.price}}</td>
+            <td class="text-center">
               <button (click)="handelCheckedProduct(product)" class="btn btn-outline-success">
                 <i [class]="product.checked? 'bi bi-check' : 'bi bi-circle' "></i>
+              </button>
+            </td>
+            <td class="text-center">
+              <button (click)="handelEditProduct(product)" class="btn btn-outline-primary">
+                <i class="bi bi-pencil"></i>
+              </button>
+              &nbsp;
+              <button (click)="handelDeleteProduct(product)" class="btn btn-outline-danger">
+                <i class="bi bi-trash"></i>
               </button>
             </td>
           </tr>
