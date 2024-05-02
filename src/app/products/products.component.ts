@@ -1,18 +1,38 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
-  products : Array<any> = [
-    {id : 1, name: "Product 1", price : 4000, checked: true},
-    {id : 2, name: "Product 2", price : 5000, checked: false},
-    {id : 3, name: "Product 3", price : 6000, checked: true}
-  ];
+export class ProductsComponent implements OnInit{
+  products : Array<any> = [];
+
+  constructor(private http : HttpClient) {
+  }
+
+  ngOnInit() {
+    this.getProduct();
+  }
+
+  getProduct(){
+    this.http.get<Array<any>>('http://localhost:8089/products')
+      .subscribe( {
+        next : data => this.products = data,
+        error : err => {
+          console.error('There was an error: ', err)
+        }
+      })
+  }
 
   handelCheckedProduct(product: any) {
-    product.checked = !product.checked;
+    this.http.patch<any>(`http://localhost:8089/products/${product.id}`, {checked: !product.checked})
+      .subscribe({
+        next : updatedProduct => {
+          product.checked = !product.checked;
+          // this.getProduct();
+        }
+      })
   }
 }
