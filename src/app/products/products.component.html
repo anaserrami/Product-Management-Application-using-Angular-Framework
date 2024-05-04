@@ -35,8 +35,7 @@
             <button (click)="handleDelete(product)" class="btn btn-outline-danger">
               <i class="bi bi-trash"></i>
             </button>
-          </td>
-          <td *ngIf="appState.authState.roles.includes('ADMIN')">
+            &nbsp;
             <button (click)="handleEdit(product)" class="btn btn-outline-success">
               <i class="bi bi-pencil"></i>
             </button>
